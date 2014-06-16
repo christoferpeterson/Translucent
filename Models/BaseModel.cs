@@ -25,6 +25,20 @@ namespace Translucent.Models
 		/// </summary>
 		protected abstract dbContext Database { get; }
 
+		public void Prepare()
+		{
+			try
+			{
+				// prepare the database queries
+				BeforeQuery();
+			}
+			catch(Exception error)
+			{
+				Exceptions = Exceptions ?? new List<Exception>();
+				Exceptions.Add(error);
+			}
+		}
+
 		/// <summary>Initialize the model. This prepares and executes database queries
 		/// </summary>
 		public void Init()
@@ -32,8 +46,7 @@ namespace Translucent.Models
 			Exceptions = new List<Exception>();
 			try
 			{
-				// prepare the database queries
-				BeforeQuery();
+				
 
 				using (var db = Database)
 				{

@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleUtility\Table.cs" />
+    <Compile Include="FormatData\Format.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\IPageModel.cs" />
