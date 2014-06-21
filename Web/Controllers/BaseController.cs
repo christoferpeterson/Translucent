@@ -1,10 +1,12 @@
 ﻿using System.IO;
 using System.Web.Mvc;
+using Translucent.Web.Attributes;
 
 namespace Translucent.Web.Controllers
 {
 	/// <summary>A base controller with some useful methods for the inheriting controller
 	/// </summary>
+	[Params]
 	public abstract class BaseController : Controller
 	{
 		public static string RenderPartialToString(Controller controller, string viewName, object model)
