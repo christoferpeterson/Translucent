@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleUtility\Table.cs" />
+    <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="FormatData\Format.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Web\Attributes\Params.cs" />
