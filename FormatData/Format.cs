@@ -43,6 +43,18 @@ namespace Translucent.FormatData
 
 		#region DateTime
 
+		public static string Rfc822(DateTime? date)
+		{
+			if(date.HasValue)
+			{
+				return date.Value.ToString("r", Culture);
+			}
+			else
+			{
+				return "--";
+			}
+		}
+
 		public static string TimeStamp(DateTime? date)
 		{
 			string value = "";
