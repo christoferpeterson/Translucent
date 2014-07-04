@@ -25,8 +25,13 @@ namespace Translucent.Models
 		/// </summary>
 		protected abstract dbContext Database { get; }
 
+		private bool _prepared = false;
+		private bool _initialized = false;
+
 		public void Prepare()
 		{
+			Exceptions = new List<Exception>();
+
 			try
 			{
 				// prepare the database queries
@@ -37,13 +42,22 @@ namespace Translucent.Models
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
 			}
+			finally
+			{
+				_prepared = true;
+			}
 		}
 
 		/// <summary>Initialize the model. This prepares and executes database queries
 		/// </summary>
 		public void Init()
 		{
-			Exceptions = new List<Exception>();
+			// make sure the prepare method has been called before initializing
+			if (!_prepared)
+			{
+				throw new Exception(this.GetType().Name + " was not prepared before attempting to initialize. The model must be prepared before initialization can take place.");
+			}
+
 			try
 			{
 				
@@ -59,12 +73,21 @@ namespace Translucent.Models
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
 			}
+			finally
+			{
+				_initialized = true;
+			}
 		}
 
 		/// <summary>Load the model. This realizes any data and executes a majority of the business logic
 		/// </summary>
 		public void Load()
 		{
+			// make sure the init method has been called before initializing
+			if (!_initialized)
+			{
+				throw new Exception(this.GetType().Name + " was not initialized before attempting to load. The model must be initialized before loading can take place.");
+			}
 
 			try
 			{
