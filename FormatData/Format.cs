@@ -31,7 +31,12 @@ namespace Translucent.FormatData
 			{
 				CultureInfo output;
 
-				output = (HttpContext.Current.Items["CultureInfo"] as CultureInfo) ?? _defaultCulture;
+				if (HttpContext.Current != null)
+				{
+					output = (HttpContext.Current.Items["CultureInfo"] as CultureInfo) ?? _defaultCulture;
+				}
+				else return _defaultCulture;
+				
 
 				return output;
 			}
