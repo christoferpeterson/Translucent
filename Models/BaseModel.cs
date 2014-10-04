@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web.Script.Serialization;
+using Translucent.Web;
 
 namespace Translucent.Models
 {
@@ -39,6 +40,11 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
+				if (Params.Debug)
+				{
+					throw;
+				}
+
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
 			}
@@ -70,6 +76,11 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
+				if (Params.Debug)
+				{
+					throw;
+				}
+
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
 			}
@@ -96,6 +107,11 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
+				if (Params.Debug)
+				{
+					throw;
+				}
+
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
 			}

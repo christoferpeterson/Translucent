@@ -38,7 +38,15 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v2.0\Assemblies\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v2.0\Assemblies\System.Web.WebPages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +54,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DateRange.cs" />
     <Compile Include="ConsoleUtility\Table.cs" />
+    <Compile Include="Helpers\ExpressionHelpers.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TimeZoneInfoExtensions.cs" />
     <Compile Include="FormatData\Format.cs" />
+    <Compile Include="FormatData\FormatDateTime.cs" />
+    <Compile Include="FormatData\FormatNumber.cs" />
+    <Compile Include="FormatData\FormatOptions.cs" />
     <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Web\Attributes\Params.cs" />
+    <Compile Include="Web\Attributes\BindAliasAttribute.cs" />
+    <Compile Include="Web\Attributes\ParamsAttribute.cs" />
+    <Compile Include="Web\Binder\DefaultModelBinderEx.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\IPageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
