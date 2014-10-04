@@ -50,13 +50,15 @@ namespace Translucent.FormatData
 		{
 			string value = "";
 			var valid = IsValid(dt);
+			var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
+
 			if (valid == DataState.valid)
 			{
-				if (dt.Value.Date == DateTime.Today)
+				if (dt.Value.Date == today)
 					value = "Today at ";
-				else if (dt.Value.Date == DateTime.Today.AddDays(-1))
+				else if (dt.Value.Date == today.AddDays(-1))
 					value = "Yesterday at ";
-				else if (dt.Value.Date == DateTime.Today.AddDays(1))
+				else if (dt.Value.Date == today.AddDays(1))
 					value = "Tomorrow at ";
 				else if (includeDate)
 					value += ShortDate(dt) + " at ";
@@ -136,23 +138,26 @@ namespace Translucent.FormatData
 		{
 			string value = "";
 			var valid = IsValid(dt);
+
+			var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
+			var date = dt.Value.Date;
 			if (valid == DataState.valid)
 			{
-				if (dt.Value.Date == DateTime.Today)
+				if (date == today)
 				{
 					value = "Today, ";
 				}
-				else if (dt.Value.Date == DateTime.Today.AddDays(-1))
+				else if (date == today.AddDays(-1))
 				{
 					value = "Yesterday, ";
 				}
-				else if (dt.Value.Date == DateTime.Today.AddDays(1))
+				else if (date == today.AddDays(1))
 				{
 					value = "Tomorrow, ";
 				}
 				else
 				{
-					value = dt.Value.ToString("dddd") + ", ";
+					value = date.ToString("dddd") + ", ";
 				}
 				value += String.Format("{0} {1}, {2}", dt.Value.ToString("MMMM", Format.Options.Culture), dt.Value.Day.Ordinal(), dt.Value.ToString("yyyy", Format.Options.Culture));
 			}
