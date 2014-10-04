@@ -1,145 +1,55 @@
 ﻿using System;
 using System.Web;
 using System.Globalization;
-using Translucent.Extensions;
+using System.Collections.Generic;
 
 namespace Translucent.FormatData
 {
-	public static partial class Format
+	public partial class Format
 	{
-		static CultureInfo _defaultCulture
-		{
-			get
-			{
-				var culture = new CultureInfo("en-US");
-
-				culture.DateTimeFormat.PMDesignator = "pm";
-				culture.DateTimeFormat.AMDesignator = "am";
-
-				culture.NumberFormat.PercentPositivePattern = 1;
-				culture.NumberFormat.PercentNegativePattern = 1;
-
-				return culture;
-			}
-		}
 
 		/// <summary>Get and set the culture for the current request
 		/// </summary>
-		public static CultureInfo Culture
+		public static FormatOptions Options
 		{
 			get
 			{
-				CultureInfo output;
-
-				if (HttpContext.Current != null)
-				{
-					output = (HttpContext.Current.Items["CultureInfo"] as CultureInfo) ?? _defaultCulture;
-				}
-				else return _defaultCulture;
-				
-
+				FormatOptions output;
+				output = (HttpContext.Current.Items["FormatOptions"] as FormatOptions) ?? new FormatOptions();
 				return output;
 			}
 			set
 			{
-				HttpContext.Current.Items["CultureInfo"] = value;
+				HttpContext.Current.Items["FormatOptions"] = value;
 			}
 		}
 
-		#region DateTime
-
-		public static string Rfc822(DateTime? date)
+		/// <summary>Gauge an object's validity by comparing it against the state cases
+		/// </summary>
+		/// <param name="dataPoint">the object to validate</param>
+		/// <returns>the value's DataState</returns>
+		private static DataState IsValid(object dataPoint)
 		{
-			if(date.HasValue)
-			{
-				return date.Value.ToString("r", Culture);
-			}
-			else
-			{
-				return "--";
-			}
+			if (dataPoint == null)
+				return DataState.in_error;
+			DataState output;
+			output = Options.DataStateCases.TryGetValue(dataPoint, out output) ? output : DataState.valid;
+			return output;
 		}
 
-		public static string TimeStamp(DateTime? date)
+		/// <summary>Return the error string corresponding to the error state
+		/// </summary>
+		/// <param name="valid"></param>
+		/// <returns></returns>
+		private static string ErrorString(DataState valid)
 		{
-			string value = "";
-
-			if (date.HasValue)
+			switch (valid)
 			{
-				if (date.Value.Date == DateTime.Today)
-					value = "Today at ";
-				else if (date.Value.Date == DateTime.Today.AddDays(-1))
-					value = "Yesterday at ";
-				else if (date.Value.Date == DateTime.Today.AddDays(1))
-					value = "Tomorrow at ";
-				else
-					value += "";
-
-				value += date.Value.ToString(@"h:mmtt \MT", Culture);
+				case DataState.not_valid: return Options.NotValidString;
+				case DataState.not_meaningful: return Options.NotMeaningfulString;
+				case DataState.in_error:
+				default: return Options.ErrorString;
 			}
-			else
-			{
-				value = "never";
-			}
-
-			return value;
 		}
-
-		public static string ShortDateTime(DateTime? date)
-		{
-			string value = "";
-
-			if(date.HasValue)
-			{
-				if(date.Value.Date == DateTime.Today)
-				{
-					value = date.Value.ToString(@"h:mmtt \MT", Culture);
-				}
-				else
-				{
-					value = date.Value.ToString(@"M/d/yyyy h:mmtt \MT", Culture);
-				}
-			}
-			else
-			{
-				value = "No date";
-			}
-
-			return value;
-		}
-
-		public static string FullDate(DateTime? date)
-		{
-			string value = "";
-
-			if(date.HasValue)
-			{
-				if(date.Value.Date == DateTime.Today)
-				{
-					value = "Today, ";
-				}
-				else if(date.Value.Date == DateTime.Today.AddDays(-1))
-				{
-					value = "Yesterday, ";
-				}
-				else if(date.Value.Date == DateTime.Today.AddDays(1))
-				{
-					value = "Tomorrow, ";
-				}
-				else
-				{
-					value = date.Value.ToString("dddd") + ", ";
-				}
-				value += String.Format("{0} {1}, {2}", date.Value.ToString("MMMM", Culture), date.Value.Day.Ordinal(), date.Value.ToString("yyyy", Culture));
-			}
-			else
-			{
-				value = "No date";
-			}
-
-			return value;
-		}
-
-		#endregion
 	}
 }
