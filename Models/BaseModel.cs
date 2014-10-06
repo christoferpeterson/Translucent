@@ -12,11 +12,11 @@ namespace Translucent.Models
 		/// <summary>A lsit of errors that accumulated throughout the process of running the model
 		/// </summary>
 		[ScriptIgnore]
-		protected List<Exception> Exceptions { get; private set; }
+		public List<Exception> Exceptions { get; private set; }
 
 		/// <summary>The list of error messages caught by the model
 		/// </summary>
-		public string[] Errors { get { return (Exceptions ?? new List<Exception>()).Select(e => e.Message).ToArray(); } }
+		public List<string> Errors { get { return (Exceptions ?? new List<Exception>()).Select(e => e.Message).ToList(); } }
 
 		/// <summary>Was the model successful (i.e. no errors)?
 		/// </summary>

@@ -8,12 +8,12 @@ namespace Translucent.Web
 		{
 			get
 			{
-				HttpContext.Current.Items["translucent.debug"] = HttpContext.Current.Items["translucent.debug"] ?? false;
-				return (HttpContext.Current.Items["translucent.debug"] as bool?) ?? false;
+				HttpContext.Current.Session["translucent.debug"] = HttpContext.Current.Items["translucent.debug"] ?? false;
+				return (HttpContext.Current.Session["translucent.debug"] as bool?) ?? false;
 			}
 			set
 			{
-				HttpContext.Current.Items["translucent.debug"] = value;
+				HttpContext.Current.Session["translucent.debug"] = value;
 			}
 		}
 	}
