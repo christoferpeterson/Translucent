@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\MVCActionResults\RssActionResult.cs" />
     <Compile Include="Web\Params.cs" />
+    <Compile Include="Web\SessionManagement\WebSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="nuget.config">
