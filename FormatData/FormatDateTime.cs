@@ -139,10 +139,11 @@ namespace Translucent.FormatData
 			string value = "";
 			var valid = IsValid(dt);
 
-			var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
-			var date = dt.Value.Date;
 			if (valid == DataState.valid)
 			{
+				var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
+				var date = dt.Value.Date;
+
 				if (date == today)
 				{
 					value = "Today, ";

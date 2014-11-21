@@ -9,6 +9,11 @@ public static class StringExtensions
 		return Regex.Replace(source, "<.*?>", string.Empty);
 	}
 
+	public static string StripHtmlScriptTags(this string source)
+	{
+		return Regex.Replace(source, @"<script [^>]*>[\s\S]*?</script>", string.Empty);
+	}
+
 	/// <summary>Truncate a string to a word specified length
 	/// </summary>
 	/// <param name="s">extension method</param>
