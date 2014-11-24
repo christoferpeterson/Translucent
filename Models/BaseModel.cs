@@ -40,7 +40,6 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
-				throw;
 				if (Params.Debug)
 				{
 					throw;
@@ -77,7 +76,6 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
-				throw;
 				if (Params.Debug)
 				{
 					throw;
@@ -109,7 +107,6 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
-				throw;
 				if (Params.Debug)
 				{
 					throw;
