@@ -10,10 +10,30 @@ namespace Translucent.FormatData
 		/// <returns>adjusted datetime according to current value of Format.TimeZone</returns>
 		public static DateTime? DateTimeFromUTC(DateTime? dt)
 		{
+			DateTime? output;
 			// verify date has a value before converting
 			var valid = IsValid(dt);
 			if (valid == DataState.valid)
-				return TimeZoneInfo.ConvertTimeFromUtc(dt.Value, Format.Options.TimeZone);
+			{
+				output = TimeZoneInfo.ConvertTimeFromUtc(dt.Value, Format.Options.TimeZone);
+				if(Format.Options.TimeZone.IsDaylightSavingTime(DateTime.Now))
+				{
+					if(!Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					{
+						output = output.Value.AddHours(1);
+					}
+				}
+				else
+				{
+					if(Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					{
+						output = output.Value.AddHours(-1);
+					}
+				}
+
+				return output;
+			}
+
 			return null;
 		}
 
