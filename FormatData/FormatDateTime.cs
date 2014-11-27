@@ -189,5 +189,28 @@ namespace Translucent.FormatData
 
 			return value;
 		}
+
+			/// <summary>Convert a nullable datetime into a full formatted string
+		/// </summary>
+		/// <param name="dt">the date to convert</param>
+		/// <returns>Includes relative day string or "dddd", "MMMM" "yyyy"</returns>
+		public static string FullDateTime(DateTime? dt)
+		{
+			string value = "";
+			var valid = IsValid(dt);
+
+			if (valid == DataState.valid)
+			{
+				value += ShortTime(dt);
+				value += " ";
+				value += FullDate(dt);
+			}
+			else
+			{
+				value = "No timestamp";
+			}
+
+			return value;
+		}
 	}
 }
