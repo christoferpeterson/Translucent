@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DateRange.cs" />
+    <Compile Include="Common\ShortGuid.cs" />
     <Compile Include="ConsoleUtility\Table.cs" />
     <Compile Include="Helpers\ExpressionHelpers.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
