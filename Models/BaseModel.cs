@@ -58,6 +58,15 @@ namespace Translucent.Models
 		/// </summary>
 		public void Init()
 		{
+			using (var db = Database)
+			{
+				// execute the database queries
+				Init(db);
+			}
+		}
+
+		public void Init(dbContext db)
+		{
 			// make sure the prepare method has been called before initializing
 			if (!_prepared)
 			{
@@ -66,15 +75,9 @@ namespace Translucent.Models
 
 			try
 			{
-				
-
-				using (var db = Database)
-				{
-					// execute the database queries
-					Query(db);
-				}
+				Query(db);
 			}
-			catch(Exception error)
+			catch (Exception error)
 			{
 				if (Params.Debug)
 				{
