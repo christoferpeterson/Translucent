@@ -7,7 +7,7 @@ using Translucent.Web;
 
 namespace Translucent.Models
 {
-	public abstract class BaseModel<dbContext> where dbContext : DbContext
+	public abstract class BaseModel<dbContext> where dbContext : DbContext, new()
 	{
 		/// <summary>A lsit of errors that accumulated throughout the process of running the model
 		/// </summary>
@@ -40,6 +40,9 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
+				#if DEBUG 
+					throw; 
+				#endif
 				if (Params.Debug)
 				{
 					throw;
@@ -79,6 +82,9 @@ namespace Translucent.Models
 			}
 			catch (Exception error)
 			{
+				#if DEBUG
+					throw;
+				#endif
 				if (Params.Debug)
 				{
 					throw;
@@ -110,6 +116,10 @@ namespace Translucent.Models
 			}
 			catch(Exception error)
 			{
+				#if DEBUG
+					throw;
+				#endif
+
 				if (Params.Debug)
 				{
 					throw;
@@ -117,6 +127,10 @@ namespace Translucent.Models
 
 				Exceptions = Exceptions ?? new List<Exception>();
 				Exceptions.Add(error);
+			}
+			finally
+			{
+				
 			}
 		}
 

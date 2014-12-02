@@ -107,6 +107,7 @@
     <Compile Include="FormatData\FormatNumber.cs" />
     <Compile Include="FormatData\FormatOptions.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Security\Crypto.cs" />
     <Compile Include="Web\Attributes\BindAliasAttribute.cs" />
     <Compile Include="Web\Attributes\ParamsAttribute.cs" />
     <Compile Include="Web\Binder\DefaultModelBinderEx.cs" />
