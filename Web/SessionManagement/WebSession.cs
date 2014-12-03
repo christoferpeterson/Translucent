@@ -62,8 +62,8 @@ namespace Translucent.Web.SessionManagement
 
 		#region Virtual Methods
 
-		public virtual void EndSession() { }
-		public virtual void UpdateSession() { }
+		public virtual void End() { }
+		public virtual void Refresh() { }
 
 		#endregion
 
