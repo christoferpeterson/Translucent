@@ -20,7 +20,7 @@ namespace Translucent.Models
 
 		/// <summary>Was the model successful (i.e. no errors)?
 		/// </summary>
-		public bool Success { get { return Exceptions == null ? false : Exceptions.Count == 0; } }
+		public bool Success { get { return _loaded && (Exceptions == null || !Exceptions.Any()); } }
 
 		/// <summary>A persistent database context that will exist during the life of the http request
 		/// </summary>
@@ -28,6 +28,7 @@ namespace Translucent.Models
 
 		private bool _prepared = false;
 		private bool _initialized = false;
+		private bool _loaded = false;
 
 		public void Prepare()
 		{
@@ -130,7 +131,7 @@ namespace Translucent.Models
 			}
 			finally
 			{
-				
+				_loaded = true;
 			}
 		}
 

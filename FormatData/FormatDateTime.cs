@@ -8,7 +8,7 @@ namespace Translucent.FormatData
 		/// </summary>
 		/// <param name="dt">the datetime to convert (must be utc)</param>
 		/// <returns>adjusted datetime according to current value of Format.TimeZone</returns>
-		public static DateTime? DateTimeFromUTC(DateTime? dt)
+		public static DateTime? FromUTC(DateTime? dt)
 		{
 			DateTime? output;
 			// verify date has a value before converting
@@ -35,6 +35,15 @@ namespace Translucent.FormatData
 			}
 
 			return null;
+		}
+
+		/// <summary>Convert a nullable date time object to utc
+		/// </summary>
+		/// <param name="dt">extension method (must not be utc)</param>
+		/// <returns>adjusted datetime according to current value of Format.TimeZone</returns>
+		public static DateTime? ToUTC(DateTime? dt)
+		{
+			return dt.HasValue ? TimeZoneInfo.ConvertTimeToUtc(dt.Value, Format.Options.TimeZone) : dt;
 		}
 
 		/// <summary>Format a datetime into an Rfc822 compliant string
@@ -70,7 +79,7 @@ namespace Translucent.FormatData
 		{
 			string value = "";
 			var valid = IsValid(dt);
-			var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
+			var today = FromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
 
 			if (valid == DataState.valid)
 			{
@@ -161,7 +170,7 @@ namespace Translucent.FormatData
 
 			if (valid == DataState.valid)
 			{
-				var today = DateTimeFromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
+				var today = FromUTC(DateTime.Now.ToUniversalTime()).Value.Date;
 				var date = dt.Value.Date;
 
 				if (date == today)
