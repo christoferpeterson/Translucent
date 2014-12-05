@@ -20,7 +20,11 @@ namespace Translucent.Models
 
 		/// <summary>Was the model successful (i.e. no errors)?
 		/// </summary>
-		public bool Success { get { return _loaded && (Exceptions == null || !Exceptions.Any()); } }
+		public bool Success { get { return Exceptions == null || !Exceptions.Any(); } }
+
+		/// <summary>Indicates whether the model's logic was completed or not
+		/// </summary>
+		public bool Completed { get { return _loaded; } }
 
 		/// <summary>A persistent database context that will exist during the life of the http request
 		/// </summary>

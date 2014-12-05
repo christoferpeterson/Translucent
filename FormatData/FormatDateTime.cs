@@ -16,16 +16,16 @@ namespace Translucent.FormatData
 			if (valid == DataState.valid)
 			{
 				output = TimeZoneInfo.ConvertTimeFromUtc(dt.Value, Format.Options.TimeZone);
-				if(Format.Options.TimeZone.IsDaylightSavingTime(DateTime.Now))
+				if (Format.Options.TimeZone.IsDaylightSavingTime(DateTime.Now))
 				{
-					if(!Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					if (!Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
 					{
 						output = output.Value.AddHours(1);
 					}
 				}
 				else
 				{
-					if(Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					if (Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
 					{
 						output = output.Value.AddHours(-1);
 					}
@@ -43,7 +43,28 @@ namespace Translucent.FormatData
 		/// <returns>adjusted datetime according to current value of Format.TimeZone</returns>
 		public static DateTime? ToUTC(DateTime? dt)
 		{
-			return dt.HasValue ? TimeZoneInfo.ConvertTimeToUtc(dt.Value, Format.Options.TimeZone) : dt;
+			var output = dt.HasValue ? TimeZoneInfo.ConvertTimeToUtc(dt.Value, Format.Options.TimeZone) : dt;
+
+			var valid = IsValid(dt);
+			if (valid == DataState.valid)
+			{
+				if (Format.Options.TimeZone.IsDaylightSavingTime(DateTime.Now))
+				{
+					if (!Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					{
+						output = output.Value.AddHours(-1);
+					}
+				}
+				else
+				{
+					if (Format.Options.TimeZone.IsDaylightSavingTime(output.Value))
+					{
+						output = output.Value.AddHours(1);
+					}
+				}
+			}
+
+			return output;
 		}
 
 		/// <summary>Format a datetime into an Rfc822 compliant string
