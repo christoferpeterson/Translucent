@@ -4,18 +4,35 @@ using System.Xml;
 
 namespace DenverChessClub.Controllers.CustomActionResults
 {
-	public class RssActionResult : ActionResult
+	public class SyndicationFeedActionResult : ActionResult
 	{
 		public SyndicationFeed Feed { get; set; }
 
+		/// <summary>Render as Atom rather than RSS
+		/// </summary>
+		public bool Atom { get; set; }
+
 		public override void ExecuteResult(ControllerContext context)
 		{
-			context.HttpContext.Response.ContentType = "application/rss+xml";
-			Rss20FeedFormatter rssFormatter = new Rss20FeedFormatter(Feed);
-
-			using (XmlWriter writer = XmlWriter.Create(context.HttpContext.Response.Output))
+			if(Atom)
 			{
-				rssFormatter.WriteTo(writer);
+				context.HttpContext.Response.ContentType = "application/atom+xml";
+				Atom10FeedFormatter rssFormatter = new Atom10FeedFormatter(Feed);
+
+				using (XmlWriter writer = XmlWriter.Create(context.HttpContext.Response.Output))
+				{
+					rssFormatter.WriteTo(writer);
+				}
+			}
+			else
+			{
+				context.HttpContext.Response.ContentType = "application/rss+xml";
+				Rss20FeedFormatter rssFormatter = new Rss20FeedFormatter(Feed, false);
+
+				using (XmlWriter writer = XmlWriter.Create(context.HttpContext.Response.Output))
+				{
+					rssFormatter.WriteTo(writer);
+				}
 			}
 		}
 	}
