@@ -1,9 +1,22 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 public static class StringExtensions
 {
+	public static object Deserialize(this string s, Type target)
+	{
+		var serializer = new JavaScriptSerializer();
+		return serializer.Deserialize(s, target);
+	}
+
+	public static T Deserialize<T>(this string s)
+	{
+		var serializer = new JavaScriptSerializer();
+		return serializer.Deserialize<T>(s);
+	}
+
 	public static string StripHtml(this string source)
 	{
 		return Regex.Replace(source, "<.*?>", string.Empty);

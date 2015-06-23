@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web.Mvc;
 using Translucent.Web.Attributes;
 
@@ -16,6 +17,12 @@ namespace Translucent.Web.Controllers
 			using (StringWriter sw = new StringWriter())
 			{
 				ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(controller.ControllerContext, viewName);
+
+				if(viewResult.View == null)
+				{
+					throw new NullReferenceException("Unable to locate view. View name: \"" + viewName + "\"");
+				}
+
 				ViewContext viewContext = new ViewContext(controller.ControllerContext, viewResult.View, controller.ViewData, controller.TempData, sw);
 				viewResult.View.Render(viewContext, sw);
 

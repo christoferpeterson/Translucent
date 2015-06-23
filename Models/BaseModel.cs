@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web.Script.Serialization;
 using Translucent.Web;
+using System.Web;
 
 namespace Translucent.Models
 {
@@ -20,11 +21,11 @@ namespace Translucent.Models
 
 		/// <summary>Was the model successful (i.e. no errors)?
 		/// </summary>
-		public bool Success { get { return Exceptions == null || !Exceptions.Any(); } }
+		public virtual bool Success { get { return Exceptions == null || !Exceptions.Any(); } }
 
 		/// <summary>Indicates whether the model's logic was completed or not
 		/// </summary>
-		public bool Completed { get { return _loaded; } }
+		public virtual bool Completed { get { return _loaded; } }
 
 		/// <summary>A persistent database context that will exist during the life of the http request
 		/// </summary>
@@ -48,7 +49,8 @@ namespace Translucent.Models
 				#if DEBUG 
 					throw; 
 				#endif
-				if (Params.Debug)
+					throw;
+				if (Params.Debug || error is HttpException)
 				{
 					throw;
 				}

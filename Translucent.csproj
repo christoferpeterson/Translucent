@@ -94,11 +94,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\PlaceholderAttribute.cs" />
     <Compile Include="Common\Address.cs" />
     <Compile Include="Common\CompareLogic.cs" />
     <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\ShortGuid.cs" />
     <Compile Include="ConsoleUtility\Table.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Helpers\ExpressionHelpers.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
