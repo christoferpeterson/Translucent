@@ -82,6 +82,55 @@ namespace Translucent.FormatData
 			return ErrorString(valid);
 		}
 
+		public static string DateRange(DateTime? start, DateTime? end)
+		{
+			if (!start.HasValue || !end.HasValue || end < start)
+			{
+				return "No valid date range provided.";
+			}
+
+			var s = FromUTC(start.Value).Value;
+			var e = FromUTC(end.Value).Value;
+
+			if (s.Date == e.Date)
+			{
+				return FullDate(s);
+			}
+
+			string output = string.Empty;
+
+			output += s.ToString("MMMM");
+			output += " " + s.Day;
+
+			
+
+			if (s.Date == e.Date)
+			{
+				if (s.Date.Year != FromUTC(DateTime.UtcNow).Value.Year)
+				{
+					output += ", " + s.ToString("yyyy");
+				}
+			}
+			else
+			{
+				output += " -";
+
+				if(s.Month != e.Month)
+				{
+					output += " " + e.ToString("MMMM");
+				}
+
+				output += " " + e.Day;
+
+				if (e.Date.Year != FromUTC(DateTime.UtcNow).Value.Year)
+				{
+					output += ", " + e.ToString("yyyy");
+				}
+			}
+
+			return output;
+		}
+
 		/// <summary>Creates a timestamp from a date time
 		/// </summary>
 		/// <param name="dt">the date time to convert</param>
@@ -238,6 +287,23 @@ namespace Translucent.FormatData
 			else
 			{
 				value = "No timestamp";
+			}
+
+			return value;
+		}
+
+		public static string FileDateTime(DateTime? dt)
+		{
+			string value = "";
+			var valid = IsValid(dt);
+
+			if (valid == DataState.valid)
+			{
+				value = dt.Value.ToString("hhmmssddMMyyyy");
+			}
+			else
+			{
+				value = String.Empty;
 			}
 
 			return value;
