@@ -49,7 +49,7 @@ namespace Translucent.Models
 				#if DEBUG 
 					throw; 
 				#endif
-					throw;
+
 				if (Params.Debug || error is HttpException)
 				{
 					throw;
