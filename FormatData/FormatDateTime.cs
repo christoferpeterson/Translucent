@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Translucent.FormatData
 {
@@ -80,6 +81,35 @@ namespace Translucent.FormatData
 			}
 
 			return ErrorString(valid);
+		}
+
+		public static string Duration(DateTime? start, DateTime? end)
+		{
+			if (!start.HasValue || !end.HasValue || end < start)
+			{
+				return "Unknown duration";
+			}
+
+			var timespan = end.Value - start.Value;
+
+			var times = new List<string>();
+
+			if(timespan.Days > 0)
+			{
+				times.Add(timespan.Days + " d" + (timespan.Days > 1 ? "s" : string.Empty));
+			}
+
+			if (timespan.Hours > 0)
+			{
+				times.Add(timespan.Hours + " hr" + (timespan.Hours > 1 ? "s" : string.Empty));
+			}
+
+			if (timespan.Minutes > 0)
+			{
+				times.Add(timespan.Minutes + " min" + (timespan.Minutes > 1 ? "s" : string.Empty));
+			}
+
+			return string.Join(" ", times.ToArray());
 		}
 
 		public static string DateRange(DateTime? start, DateTime? end)

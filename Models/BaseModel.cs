@@ -92,6 +92,7 @@ namespace Translucent.Models
 				#if DEBUG
 					throw;
 				#endif
+
 				if (Params.Debug)
 				{
 					throw;
