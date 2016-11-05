@@ -5,6 +5,18 @@ namespace Translucent.FormatData
 {
 	public partial class Format
 	{
+		public static string ToSqlDate(DateTime? dt)
+		{
+			var valid = IsValid(dt);
+
+			if(valid == DataState.valid)
+			{
+				return dt.Value.ToString("YYYY-MM-dd hh:mm:ss.000");
+			}
+
+			return null;
+		}
+
 		/// <summary>Convert a DateTime from utc to the current timezone
 		/// </summary>
 		/// <param name="dt">the datetime to convert (must be utc)</param>
